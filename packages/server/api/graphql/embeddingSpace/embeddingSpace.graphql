@@ -1,0 +1,24 @@
+scalar JSON
+
+type EmbeddingSpace {
+  id: ID!
+  name: String!
+  provider: String!
+  model: String!
+  dim: Int!
+  metric: String!
+  description: String
+  created: DateTime!
+  updated: DateTime
+}
+
+input GetQueryEmbeddingInput {
+  userId: ID!
+  collectionId: ID!
+  text: String!
+}
+
+type Query {
+  embeddingSpaces: [EmbeddingSpace!]!
+  defaultEmbeddingSpace: EmbeddingSpace
+}

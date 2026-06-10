@@ -1,0 +1,20 @@
+FROM cokoapps/base:20
+
+RUN corepack enable
+
+WORKDIR /home/node/app
+
+ENV NODE_ENV=production
+
+COPY .yarnrc.yml .
+COPY package.json .
+COPY yarn.lock .
+
+RUN chown -R node:node .
+USER node
+
+RUN yarn workspaces focus --production && yarn cache clean && rm -rf ~/.npm
+
+COPY --chown=node:node . .
+
+CMD ["yarn", "coko-server", "start"]

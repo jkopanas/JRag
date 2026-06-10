@@ -1,0 +1,47 @@
+type RetrievedChunk {
+  chunkId: ID!
+  documentId: ID!
+  collectionId: ID!
+  chunkIndex: Int!
+  text: String!
+  sectionPath: [String!]
+  sourceUri: String
+  title: String
+  score: Float!
+}
+
+type RetrievalStats {
+  topK: Int!
+  neighborWindow: Int!
+  usedEmbeddingSpaceId: ID!
+  strategy: String!
+}
+
+type RetrievalPayload {
+  query: String!
+  results: [RetrievedChunk!]!
+  stats: RetrievalStats!
+}
+
+input QueryRetrievalInput {
+  userId: ID!
+  collectionId: ID
+  query: String!
+  topK: Int = 20
+  neighborWindow: Int = 1
+  strategy: String!
+  minScore: Float = 0.5
+}
+
+type Strategy {
+  id: ID!
+  type: String!
+  key: String!
+  name: String!
+  description: String!
+}
+
+type Query {
+  retrieve(input: QueryRetrievalInput!): RetrievalPayload!
+  getStrategies(type: String!): [Strategy!]!
+}

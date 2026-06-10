@@ -1,0 +1,22 @@
+# fly.toml app configuration file generated for rag-server on 2025-09-17T18:45:47+03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'rag-server'
+primary_region = 'lhr'
+
+[build]
+  image = 'registry.fly.io/rag-server:latest'
+
+[http_service]
+  internal_port = 3000
+  auto_start_machines = true
+  auto_stop_machines = false
+  min_machines_running = 1
+  force_https = true
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1

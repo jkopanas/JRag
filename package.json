@@ -1,0 +1,20 @@
+{
+  "name": "pure",
+  "scripts": {
+    "cz": "./node_modules/.bin/lint-staged && ./node_modules/.bin/git-cz",
+    "test:server": "docker compose run --rm server yarn test"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-customizable"
+    }
+  },
+  "dependencies": {
+    "@coko/lint": "^2.1.0",
+    "tiktoken": "^1.0.22"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "packageManager": "yarn@4.8.1"
+}

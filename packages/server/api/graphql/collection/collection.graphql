@@ -1,0 +1,26 @@
+type Collection {
+  id: ID!
+  userId: ID!
+  name: String!
+  description: String
+  embeddingSpace: EmbeddingSpace!
+  isSystem: Boolean!
+  created: DateTime!
+  updated: DateTime
+}
+
+input CreateCollectionInput {
+  userId: ID!
+  name: String!
+  description: String
+  embeddingSpaceId: ID      # optional; server uses default if omitted
+}
+
+type Query {
+  collections(userId: ID!): [Collection!]!
+  collection(userId: ID!, id: ID!): Collection
+}
+
+type Mutation {
+  createCollection(input: CreateCollectionInput!): Collection!
+}

@@ -1,0 +1,21 @@
+FROM postgres:17-alpine
+
+# Install build dependencies
+RUN apk add --no-cache --virtual .build-deps build-base git postgresql17-dev clang19 llvm19
+
+# Point to the pg_config that ships with the image
+ENV PG_CONFIG=/usr/local/bin/pg_config
+
+# Install pgvector
+RUN git clone --branch v0.5.1 https://github.com/pgvector/pgvector.git /tmp/pgvector
+WORKDIR /tmp/pgvector
+RUN make 
+RUN make install
+
+# Clean up build dependencies to reduce image size
+
+RUN apk del build-base git postgresql17-dev clang19 llvm19
+RUN rm -rf /tmp/pgvector
+
+# Switch back to the postgres user
+USER postgres

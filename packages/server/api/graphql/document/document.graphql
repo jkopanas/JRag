@@ -1,0 +1,32 @@
+scalar JSON
+
+type Document {
+  id: ID!
+  collectionId: ID!
+  sourceUri: String
+  mime: String
+  language: String
+  meta: JSON
+  created: DateTime!
+  updated: DateTime
+}
+
+type DocumentProcessingUpdate {
+  documentId: ID!
+  collectionId: ID!
+  jobId: ID!
+  status: String!
+  chunksInserted: Int
+  embeddingsInserted: Int
+  error: String
+  processingCompletedAt: DateTime
+}
+
+type Query {
+  documents(userId: ID!, collectionId: ID!): [Document!]!
+  document(userId: ID!, id: ID!): Document
+}
+
+type Subscription {
+  documentProcessingUpdate(jobId: ID!): DocumentProcessingUpdate!
+}

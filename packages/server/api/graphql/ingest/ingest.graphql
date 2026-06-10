@@ -1,0 +1,25 @@
+enum IngestStatus {
+  QUEUED
+  PARSING
+  CHUNKING
+  EMBEDDING
+  INDEXING
+  COMPLETED
+  FAILED
+}
+
+type IngestJob {
+  id: ID!
+  collectionId: ID!
+  documentId: ID
+  status: IngestStatus!
+  totalChunks: Int
+  embeddedChunks: Int
+  error: String
+  created: DateTime!
+  updated: DateTime
+}
+
+type Query {
+  ingestJob(userId: ID!, id: ID!): IngestJob
+}
